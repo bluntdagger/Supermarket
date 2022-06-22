@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
-    public  List<String> getFileContent(String path){
+    public  List<String> getFileContent(String path) throws FileNotFoundException {
 
         List<String> lines = new ArrayList<>();
-        try {
             URL url = getClass().getClassLoader().getResource(path) ;
             String filePath = "";
             if(url != null){
@@ -24,10 +23,7 @@ public class FileReader {
                 lines.add(scanner.nextLine());
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            e.printStackTrace();
-        }
+
         return lines;
     }
 }
