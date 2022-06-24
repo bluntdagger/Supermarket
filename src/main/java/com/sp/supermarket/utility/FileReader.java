@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * File reader utility class
+ * @author Waleed Naveed
+ * 23/6/22
+ */
 public class FileReader {
     public  List<String> getFileContent(String path) throws FileNotFoundException {
 

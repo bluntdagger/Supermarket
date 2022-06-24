@@ -1,6 +1,10 @@
 package com.sp.supermarket.model;
 
-
+/**
+ * Inventory model class
+ * @author Waleed Naveed
+ * 23/6/22
+ */
 public class Inventory{
     private String productName;
     private Double amount;
