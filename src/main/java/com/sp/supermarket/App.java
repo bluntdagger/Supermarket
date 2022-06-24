@@ -1,5 +1,6 @@
 package com.sp.supermarket;
 
+import com.sp.supermarket.service.Supermarket;
 import com.sp.supermarket.utility.FileReader;
 
 import java.io.FileNotFoundException;
@@ -12,37 +13,16 @@ public class App
 
     public static void main( String[] args ) {
 
-
+        Supermarket supermarket = new Supermarket();
         if(args.length == 1 ) {
-            System.out.println("Interactive mode");
-
-            //getting file inventory
-            getFileContent(args[0]).forEach(System.out::println);
-
+            supermarket.runInteractiveMode(args[0]);
         } else if (args.length == 2){
-            System.out.println("File mode");
-            //getting file inventory
-            getFileContent(args[0]).forEach(System.out::println);
-            //getting file command.txt
-            getFileContent(args[1]).forEach(System.out::println);
-
+            supermarket.runFileMode(args[0],args[1]);
 
         } else {
             System.out.println("Wrong argument is provided");
         }
 
-    }
-
-    private static List<String> getFileContent(String fileName) {
-        FileReader fileReader = new FileReader();
-
-        List<String> lines = new ArrayList<>();
-        try {
-            lines = fileReader.getFileContent(fileName);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
-        return lines;
     }
 
 
