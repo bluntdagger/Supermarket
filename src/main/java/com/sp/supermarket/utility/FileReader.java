@@ -13,10 +13,10 @@ import java.util.Scanner;
  * 23/6/22
  */
 public class FileReader {
-    public  List<String> getFileContent(String path) throws FileNotFoundException {
+    public static List<String> getFileContent(String path) throws FileNotFoundException {
 
         List<String> lines = new ArrayList<>();
-            URL url = getClass().getClassLoader().getResource(path) ;
+            URL url = FileReader.class.getClassLoader().getResource(path) ;
             String filePath = "";
             if(url != null){
                 filePath = url.getFile();

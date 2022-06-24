@@ -15,9 +15,9 @@ public class App
 
         Supermarket supermarket = new Supermarket();
         if(args.length == 1 ) {
-            supermarket.runInteractiveMode(args[0]);
+            supermarket.run(args[0],null);
         } else if (args.length == 2){
-            supermarket.runFileMode(args[0],args[1]);
+            supermarket.run(args[0],args[1]);
 
         } else {
             System.out.println("Wrong argument is provided");

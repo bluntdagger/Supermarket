@@ -4,7 +4,11 @@ import com.sp.supermarket.utility.FileReader;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -17,28 +21,43 @@ import java.util.List;
  */
 public class Supermarket {
 
+    private InventoryManager inventoryManager;
+
+    public Supermarket() {
+        inventoryManager = new InventoryManager();
+    }
+
+    public void run(String inventoryFileName, String commandsFileName) {
+        loadInventory(inventoryFileName);
+        if(commandsFileName == null){
+            runInteractiveMode(inventoryFileName);
+        } else {
+            runFileMode(inventoryFileName,commandsFileName);
+        }
+    }
+
+    private void loadInventory(String inventoryFileName) {
+        inventoryManager.loadInventory(inventoryFileName);
+    }
 
     public void runInteractiveMode(String inventoryFileName) {
-        getFileContent(inventoryFileName).forEach(System.out::println);
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            String input = scanner.next();
+
+            if("exit".equalsIgnoreCase(input)){
+                scanner.close();
+                System.out.println("Done");
+                System.exit(0);
+            }
+        }
     }
 
     public void runFileMode(String inventoryFileName, String commandsFileName) {
-        getFileContent(inventoryFileName).forEach(System.out::println);
-        getFileContent(commandsFileName).forEach(System.out::println);
     }
 
 
-    private List<String> getFileContent(String fileName) {
-        FileReader fileReader = new FileReader();
 
-        List<String> lines = new ArrayList<>();
-        try {
-            lines = fileReader.getFileContent(fileName);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
-        return lines;
-    }
 
 
 }
