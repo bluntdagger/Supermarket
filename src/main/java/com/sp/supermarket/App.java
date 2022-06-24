@@ -30,9 +30,6 @@ public class App
             System.out.println("Wrong argument is provided");
         }
 
-
-
-
     }
 
     private static List<String> getFileContent(String fileName) {
