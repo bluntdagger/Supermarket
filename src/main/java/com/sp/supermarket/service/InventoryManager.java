@@ -53,4 +53,8 @@ public class InventoryManager {
 
 //        inventoryMap.forEach((key, value) -> System.out.println(key + " " + value));
     }
+
+    public boolean checkIfItemExists(String key) {
+        return inventoryMap.containsKey(key);
+    }
 }

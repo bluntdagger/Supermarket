@@ -15,4 +15,6 @@ public final class Constants {
     public static final String RESPONSE_BILL= "subtotal:" + "%s" + ", discount:" + "%s" + ", total:" + "%s";
 
 
+    public static final String PREFIX_ADD = "add " ;
+    public static final String RESPONSE_ITEM_NOT_EXIST = "%s doesnot exist" ;
 }
