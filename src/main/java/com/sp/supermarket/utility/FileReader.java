@@ -15,6 +15,10 @@ import java.util.Scanner;
 public class FileReader {
     public static List<String> getFileContent(String path) throws FileNotFoundException {
 
+        System.out.println("file path");
+        System.out.println(new File(".").getAbsolutePath());
+        System.out.println("path");
+        System.out.println(path);
         List<String> lines = new ArrayList<>();
             URL url = FileReader.class.getClassLoader().getResource(path) ;
             String filePath = "";

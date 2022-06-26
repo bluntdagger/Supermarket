@@ -30,6 +30,7 @@ public class InventoryManager {
 
     public void loadInventory(String inventoryFileName) {
 
+        System.out.println(inventoryFileName);
         List<String> lines = null;
         try {
             lines = FileReader.getFileContent(inventoryFileName);
@@ -50,6 +51,6 @@ public class InventoryManager {
             inventoryMap.put(lineSeperated.get(0),inventory);
         });
 
-        inventoryMap.forEach((key, value) -> System.out.println(key + " " + value));
+//        inventoryMap.forEach((key, value) -> System.out.println(key + " " + value));
     }
 }
