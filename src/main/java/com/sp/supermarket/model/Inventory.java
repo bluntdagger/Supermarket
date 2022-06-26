@@ -1,11 +1,14 @@
 package com.sp.supermarket.model;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  * Inventory model class
  * @author Waleed Naveed
  * 23/6/22
  */
-public class Inventory{
+public class Inventory  {
     private String productName;
     private Double amount;
     private Integer quantity;
@@ -42,4 +45,13 @@ public class Inventory{
         this.amount = amount;
         this.quantity = quantity;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Inventory)) return false;
+        Inventory inventory = (Inventory) o;
+        return Objects.equals(getProductName(), inventory.getProductName()) && Objects.equals(getAmount(), inventory.getAmount()) && Objects.equals(getQuantity(), inventory.getQuantity());
+    }
+
 }
