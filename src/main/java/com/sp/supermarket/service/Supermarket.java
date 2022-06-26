@@ -23,9 +23,12 @@ import java.util.stream.Stream;
 public class Supermarket {
 
     private InventoryManager inventoryManager;
+    private Cart cart;
 
-    public Supermarket() {
-        inventoryManager = new InventoryManager();
+    public Supermarket(){
+    inventoryManager = new InventoryManager();
+    cart = new Cart();
+
     }
 
     /**
@@ -54,6 +57,7 @@ public class Supermarket {
      *
      *
      * @param inventoryFileName
+     * inventory.csv file 
      */
     public void runInteractiveMode(String inventoryFileName) {
 
@@ -65,7 +69,10 @@ public class Supermarket {
             String input = scanner.next();
 
             if(Constants.COMMAND_CHECKOUT.equalsIgnoreCase(input)){
-                //todo 
+                if(cart.isEmpty()){
+                    System.out.println(Constants.RESPONSE_EMPTY_CARD_EMPTY_CART);
+                    System.exit(0);
+                }
             }
 
             if("exit".equalsIgnoreCase(input)){
