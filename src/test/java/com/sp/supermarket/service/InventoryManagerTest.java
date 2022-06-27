@@ -2,13 +2,14 @@ package com.sp.supermarket.service;
 
 
 import com.sp.supermarket.model.Inventory;
+import com.sp.supermarket.utility.FileReader;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class InventoryManagerTest {
@@ -42,5 +43,27 @@ public class InventoryManagerTest {
     public void testIfItemExist(){
         assertTrue(inventoryManager.checkIfItemExists("toothpaste"));
         assertFalse(inventoryManager.checkIfItemExists("chocolate"));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetInventoryItemNegative(){
+        inventoryManager.getInventory("chocolate");
+    }
+
+    @Test
+    public void testGetInventoryItem(){
+        Inventory inventory =  inventoryManager.getInventory("toothpaste");
+
+        Inventory expectedInventory = new Inventory("toothpaste",10.00,99);
+
+        assertEquals(expectedInventory,inventory);
+    }
+
+
+
+    @Test(expected = FileNotFoundException.class)
+    public void testGetContentException() throws FileNotFoundException {
+        FileReader.getFileContent("sadapay.txt");
+
     }
 }

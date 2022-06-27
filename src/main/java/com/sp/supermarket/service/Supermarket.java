@@ -106,12 +106,10 @@ public class Supermarket {
             Integer quantity = Integer.valueOf(addArr[2]);
 
             //fetch map data with item
-            if(inventoryManager.checkIfItemExists(item)){
-                //todo check for quantity
-                cart.add(item,quantity);
-            }else{
-                System.out.println(String.format(Constants.RESPONSE_ITEM_NOT_EXIST,item));
-            }
+                if(quantity<=inventoryManager.getQuantityOfItem(item)) {
+                    cart.add(item, quantity);
+                }
+
         }
 
         return false;

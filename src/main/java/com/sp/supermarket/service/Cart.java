@@ -57,10 +57,12 @@ public class Cart {
 
     /**
      * Add item to the cart
+     *
      * @param item
      * item name to be added
      * @param quantity
-     * quantoty of item to be added
+     * quantity of item to be added
+     *
      */
     public void add(String item, Integer quantity) {
         //todo

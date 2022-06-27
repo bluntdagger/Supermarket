@@ -57,4 +57,19 @@ public class InventoryManager {
     public boolean checkIfItemExists(String key) {
         return inventoryMap.containsKey(key);
     }
+
+    public int getQuantityOfItem(String item) {
+        return getInventory(item).getQuantity();
+    }
+
+    public Double getAmountOfItem(String item) {
+        return getInventory(item).getAmount();
+    }
+
+    public Inventory getInventory(String item) {
+        if(checkIfItemExists(item))
+            return inventoryMap.get(item);
+
+        throw new IllegalArgumentException(String.format(Constants.RESPONSE_ITEM_NOT_EXIST,item));
+    }
 }
