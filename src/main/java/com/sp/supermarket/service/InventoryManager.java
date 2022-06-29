@@ -33,7 +33,6 @@ public class InventoryManager {
 
     public void loadInventory(String inventoryFileName) {
 
-        System.out.println(inventoryFileName);
         List<String> lines = null;
         try {
             lines = FileReader.getFileContent(inventoryFileName);
@@ -54,7 +53,7 @@ public class InventoryManager {
             inventoryMap.put(lineSeperated.get(0),inventory);
         });
 
-       itemNames = inventoryMap.keySet();
+        itemNames = inventoryMap.keySet();
     }
 
     public boolean checkIfItemExists(String key) {
@@ -70,12 +69,14 @@ public class InventoryManager {
     }
 
     public Inventory getInventory(String item) {
-        if(checkIfItemExists(item))
-            return inventoryMap.get(item);
+        return inventoryMap.get(item);
 
-        throw new IllegalArgumentException(String.format(Constants.RESPONSE_ITEM_NOT_EXIST,item));
     }
 
 
+    public void validateItem(String item) {
+        if(!checkIfItemExists(item))
+            throw new IllegalArgumentException(String.format(Constants.RESPONSE_ITEM_NOT_EXIST,item));
 
+    }
 }

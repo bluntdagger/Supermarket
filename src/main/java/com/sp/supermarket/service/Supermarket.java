@@ -113,15 +113,34 @@ public class Supermarket {
                 String item = addArr[1];
                 Integer quantity = Integer.valueOf(addArr[2]);
 
+                //validate if item exists in inventory
+                inventoryManager.validateItem(item);
                 //fetch map data with item
                 if (quantity <= inventoryManager.getQuantityOfItem(item)) {
                     cart.add(item, quantity);
                     cart.processCart(inventoryManager.getInventoryMap());
+                    processOutput(String.format(Constants.RESPONSE_ITEM_ADDED,item,quantity),fileMode);
                 } else {
                     processOutput(String.format(Constants.RESPONSE_ITEM_OUT_OF_STOCK, item), fileMode);
                 }
 
             }
+
+            if(input.startsWith(Constants.PREFIX_OFFER)){
+                //checking add regex
+                if (!input.matches(Constants.REGEX_OFFER))
+                    throw new IllegalArgumentException(Constants.INVALID_OFFER_STATEMENT_EXCEPTION);
+
+                String[] offerArr = input.split(" ");
+                String offerType = offerArr[1];
+                cart.validateOffer(offerType);
+                String item = offerArr[2];
+                inventoryManager.validateItem(item);
+
+                processOutput(Constants.RESPONSE_OFFER_ADDED,fileMode);
+
+            }
+
         } catch (Exception e){
             processOutput("Error occurred : "+e.getMessage(),fileMode);
             e.printStackTrace();

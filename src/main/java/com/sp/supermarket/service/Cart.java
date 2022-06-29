@@ -1,6 +1,7 @@
 package com.sp.supermarket.service;
 
 import com.sp.supermarket.model.Inventory;
+import com.sp.supermarket.utility.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,5 +95,10 @@ public class Cart {
             });
             //todo discount implementation
         }
+    }
+
+    public void validateOffer(String offerType) {
+        if(!(Constants.OFFER_BUY2GET1FREE.equals(offerType) || Constants.OFFER_BUY1GETHALFOFF.equals(offerType)))
+            throw new IllegalArgumentException(Constants.INVALID_OFFER_STATEMENT_EXCEPTION);
     }
 }

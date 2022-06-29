@@ -47,7 +47,9 @@ public class InventoryManagerTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testGetInventoryItemNegative(){
-        inventoryManager.getInventory("chocolate");
+        String item = "chocolate";
+        inventoryManager.validateItem(item);
+        inventoryManager.getInventory(item);
     }
 
     @Test
@@ -65,6 +67,10 @@ public class InventoryManagerTest {
 
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testValidateItemNegative(){
+        inventoryManager.validateItem("chocolate");
+    }
 
 
 }
