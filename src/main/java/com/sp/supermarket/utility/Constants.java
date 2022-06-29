@@ -17,4 +17,7 @@ public final class Constants {
 
     public static final String PREFIX_ADD = "add " ;
     public static final String RESPONSE_ITEM_NOT_EXIST = "%s doesnot exist" ;
+    public static final String RESPONSE_ITEM_OUT_OF_STOCK = "%s is out of stock." ;
+    public static final String REGEX_ADD = "add [a-z]+ \\d{1,5}" ;
+    public static final String INVALID_ADD_STATEMENT_EXCEPTION = "Add statement is not valid" ;
 }

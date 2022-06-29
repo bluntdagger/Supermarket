@@ -13,8 +13,10 @@ import java.util.Map;
 public class Cart {
 
     //Inventory and Number of same items
-    //todo review this data structure this might not be suitable
-    private Map<Inventory,Integer> cartMap;
+    private Map<String,Integer> cartMap;
+
+    //product name and offer
+    private Map<String,String> offerMap ;
     //Total price of cart
     private Double subTotal;
     //discount on basis of offers
@@ -26,16 +28,21 @@ public class Cart {
         discount = 0.00;
     }
 
+    private void resetPriceOfCart(){
+        subTotal = 0.00;
+        discount = 0.00;
+    }
+
     public boolean isEmpty() {
         return cartMap.isEmpty();
     }
 
 
-    public Map<Inventory, Integer> getCartMap() {
+    public Map<String, Integer> getCartMap() {
         return cartMap;
     }
 
-    public void setCartMap(Map<Inventory, Integer> cartMap) {
+    public void setCartMap(Map<String, Integer> cartMap) {
         this.cartMap = cartMap;
     }
 
@@ -65,6 +72,27 @@ public class Cart {
      *
      */
     public void add(String item, Integer quantity) {
-        //todo
+        if(cartMap.containsKey(item)){
+            cartMap.put(item,cartMap.get(item)+quantity);
+        } else{
+            cartMap.put(item,quantity);
+        }
+    }
+
+
+    /**
+     * Process cart is method which process all bills and offers added in the cart map
+     * and offer map. It will calculate the subtotal total and discount when called.
+     *
+     */
+    public void processCart(Map<String, Inventory> inventoryMap) {
+        if(!cartMap.isEmpty()){
+            resetPriceOfCart();
+            //iterate map
+            cartMap.forEach((item, quantity) ->{
+                subTotal = subTotal + inventoryMap.get(item).getAmount() * quantity;
+            });
+            //todo discount implementation
+        }
     }
 }

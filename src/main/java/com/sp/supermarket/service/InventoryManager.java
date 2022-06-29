@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,7 +19,8 @@ import java.util.stream.Stream;
  * 24/6/22
  */
 public class InventoryManager {
-    Map<String, Inventory> inventoryMap;
+    private Map<String, Inventory> inventoryMap;
+    private Set<String> itemNames;
 
     public InventoryManager() {
         inventoryMap = new HashMap<>();
@@ -27,6 +29,7 @@ public class InventoryManager {
     public Map<String, Inventory> getInventoryMap() {
         return inventoryMap;
     }
+
 
     public void loadInventory(String inventoryFileName) {
 
@@ -51,7 +54,7 @@ public class InventoryManager {
             inventoryMap.put(lineSeperated.get(0),inventory);
         });
 
-//        inventoryMap.forEach((key, value) -> System.out.println(key + " " + value));
+       itemNames = inventoryMap.keySet();
     }
 
     public boolean checkIfItemExists(String key) {
@@ -72,4 +75,7 @@ public class InventoryManager {
 
         throw new IllegalArgumentException(String.format(Constants.RESPONSE_ITEM_NOT_EXIST,item));
     }
+
+
+
 }

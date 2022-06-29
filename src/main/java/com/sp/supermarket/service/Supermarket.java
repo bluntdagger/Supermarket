@@ -78,40 +78,54 @@ public class Supermarket {
 
     private boolean processInput(String input, boolean fileMode) {
 
-        //case checkout
-        if(Constants.COMMAND_CHECKOUT.equalsIgnoreCase(input)){
-            if(cart.isEmpty()) {
-                processOutput(Constants.RESPONSE_EMPTY_CARD_EMPTY_CART, fileMode);
-                return true;
-            }
-            //todo write to inventory.csv the actual remaining inventory
+        try {
 
-            return true;
-        }
 
-        //case bill
-        else if (Constants.COMMAND_BILL.equalsIgnoreCase(input)){
-            String bill = String.format(Constants.RESPONSE_BILL
-                    ,cart.getSubTotal(),cart.getDiscount(),cart.getSubTotal()- cart.getDiscount());
-
-            processOutput(bill,fileMode);
-        }
-
-        //case add
-        if(input.startsWith(Constants.PREFIX_ADD)){
-            //spitting string to get contents of add string
-            String[] addArr = input.split(" ");
-
-            String item = addArr[1];
-            Integer quantity = Integer.valueOf(addArr[2]);
-
-            //fetch map data with item
-                if(quantity<=inventoryManager.getQuantityOfItem(item)) {
-                    cart.add(item, quantity);
+            //case checkout
+            if (Constants.COMMAND_CHECKOUT.equalsIgnoreCase(input)) {
+                if (cart.isEmpty()) {
+                    cart.processCart(inventoryManager.getInventoryMap());
+                    processOutput(Constants.RESPONSE_EMPTY_CARD_EMPTY_CART, fileMode);
+                    return true;
                 }
 
-        }
+                return true;
+            }
 
+            //case bill
+            else if (Constants.COMMAND_BILL.equalsIgnoreCase(input)) {
+                cart.processCart(inventoryManager.getInventoryMap());
+                String bill = String.format(Constants.RESPONSE_BILL
+                        , cart.getSubTotal(), cart.getDiscount(), cart.getSubTotal() - cart.getDiscount());
+
+                processOutput(bill, fileMode);
+            }
+
+            //case add
+            if (input.startsWith(Constants.PREFIX_ADD)) {
+
+                //checking add regex
+                if (!input.matches(Constants.REGEX_ADD))
+                    throw new IllegalArgumentException(Constants.INVALID_ADD_STATEMENT_EXCEPTION);
+                //spitting string to get contents of add string
+                String[] addArr = input.split(" ");
+
+                String item = addArr[1];
+                Integer quantity = Integer.valueOf(addArr[2]);
+
+                //fetch map data with item
+                if (quantity <= inventoryManager.getQuantityOfItem(item)) {
+                    cart.add(item, quantity);
+                    cart.processCart(inventoryManager.getInventoryMap());
+                } else {
+                    processOutput(String.format(Constants.RESPONSE_ITEM_OUT_OF_STOCK, item), fileMode);
+                }
+
+            }
+        } catch (Exception e){
+            processOutput("Error occurred : "+e.getMessage(),fileMode);
+            e.printStackTrace();
+        }
         return false;
     }
 
