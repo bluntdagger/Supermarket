@@ -96,7 +96,7 @@ public class Supermarket {
             else if (Constants.COMMAND_BILL.equalsIgnoreCase(input)) {
                 cart.processCart(inventoryManager.getInventoryMap());
                 String bill = String.format(Constants.RESPONSE_BILL
-                        , cart.getSubTotal(), cart.getDiscount(), cart.getSubTotal() - cart.getDiscount());
+                        , cart.getSubTotal(), cart.getDiscount(), cart.getSubTotal().subtract(cart.getDiscount()));
 
                 processOutput(bill, fileMode);
             }

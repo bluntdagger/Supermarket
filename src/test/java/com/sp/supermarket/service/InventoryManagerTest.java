@@ -2,6 +2,7 @@ package com.sp.supermarket.service;
 
 
 import com.sp.supermarket.model.Inventory;
+import com.sp.supermarket.utility.BigDecimalUtil;
 import com.sp.supermarket.utility.FileReader;
 import org.junit.Test;
 
@@ -27,15 +28,15 @@ public class InventoryManagerTest {
 
         Map<String, Inventory> inventoryMap =  inventoryManager.getInventoryMap();
 
-        Inventory toothpaste = new Inventory("toothpaste",10.00,99);
-        Inventory soap = new Inventory("soap",2.50,9);
+        Inventory toothpaste = new Inventory("toothpaste", BigDecimalUtil.getBigDecimal(10.00),99);
+        Inventory soap = new Inventory("soap", BigDecimalUtil.getBigDecimal(2.50),9);
 
         Map<String,Inventory> expectedMap = new HashMap<>();
         expectedMap.put(toothpaste.getProductName(),toothpaste);
         expectedMap.put(soap.getProductName(),soap);
 
 
-        assertTrue(expectedMap.equals(inventoryMap));
+        assertEquals(expectedMap, inventoryMap);
 
     }
 
@@ -56,7 +57,7 @@ public class InventoryManagerTest {
     public void testGetInventoryItem(){
         Inventory inventory =  inventoryManager.getInventory("toothpaste");
 
-        Inventory expectedInventory = new Inventory("toothpaste",10.00,99);
+        Inventory expectedInventory = new Inventory("toothpaste", BigDecimalUtil.getBigDecimal(10.00),99);
 
         assertEquals(expectedInventory,inventory);
     }

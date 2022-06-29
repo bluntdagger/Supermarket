@@ -1,8 +1,10 @@
 package com.sp.supermarket.service;
 
 import com.sp.supermarket.model.Inventory;
+import com.sp.supermarket.utility.BigDecimalUtil;
 import com.sp.supermarket.utility.Constants;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,19 +21,19 @@ public class Cart {
     //product name and offer
     private Map<String,String> offerMap ;
     //Total price of cart
-    private Double subTotal;
+    private BigDecimal subTotal;
     //discount on basis of offers
-    private Double discount;
+    private BigDecimal discount;
 
     public Cart() {
         cartMap = new HashMap<>();
-        subTotal = 0.00;
-        discount = 0.00;
+        subTotal = BigDecimalUtil.getBigDecimal(0.00);
+        discount = BigDecimalUtil.getBigDecimal(0.00);
     }
 
     private void resetPriceOfCart(){
-        subTotal = 0.00;
-        discount = 0.00;
+        subTotal = BigDecimalUtil.getBigDecimal(0.00);
+        discount = BigDecimalUtil.getBigDecimal(0.00);
     }
 
     public boolean isEmpty() {
@@ -47,19 +49,19 @@ public class Cart {
         this.cartMap = cartMap;
     }
 
-    public Double getSubTotal() {
+    public BigDecimal getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(Double subTotal) {
+    public void setSubTotal(BigDecimal subTotal) {
         this.subTotal = subTotal;
     }
 
-    public Double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 
@@ -90,9 +92,7 @@ public class Cart {
         if(!cartMap.isEmpty()){
             resetPriceOfCart();
             //iterate map
-            cartMap.forEach((item, quantity) ->{
-                subTotal = subTotal + inventoryMap.get(item).getAmount() * quantity;
-            });
+            cartMap.forEach((item, quantity) -> subTotal = subTotal.add(inventoryMap.get(item).getAmount().multiply(BigDecimal.valueOf(quantity))));
             //todo discount implementation
         }
     }

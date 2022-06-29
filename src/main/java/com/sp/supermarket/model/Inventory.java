@@ -1,6 +1,7 @@
 package com.sp.supermarket.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Objects;
  */
 public class Inventory  {
     private String productName;
-    private Double amount;
+    private BigDecimal amount;
     private Integer quantity;
 
     public Inventory() {
@@ -24,11 +25,11 @@ public class Inventory  {
         this.productName = productName;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -40,7 +41,7 @@ public class Inventory  {
         this.quantity = quantity;
     }
 
-    public Inventory(String productName, Double amount, Integer quantity) {
+    public Inventory(String productName, BigDecimal amount, Integer quantity) {
         this.productName = productName;
         this.amount = amount;
         this.quantity = quantity;

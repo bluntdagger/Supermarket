@@ -1,10 +1,12 @@
 package com.sp.supermarket.service;
 
 import com.sp.supermarket.model.Inventory;
+import com.sp.supermarket.utility.BigDecimalUtil;
 import com.sp.supermarket.utility.Constants;
 import com.sp.supermarket.utility.FileReader;
 
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,6 @@ import java.util.stream.Stream;
  */
 public class InventoryManager {
     private Map<String, Inventory> inventoryMap;
-    private Set<String> itemNames;
 
     public InventoryManager() {
         inventoryMap = new HashMap<>();
@@ -46,14 +47,13 @@ public class InventoryManager {
                     .collect(Collectors.toList());
 
             Inventory inventory = new Inventory(lineSeperated.get(0)
-                    ,Double.parseDouble(lineSeperated.get(1))
+                    , BigDecimalUtil.getBigDecimal(lineSeperated.get(1))
                     ,Integer.parseInt(lineSeperated.get(2))
             );
 
             inventoryMap.put(lineSeperated.get(0),inventory);
         });
 
-        itemNames = inventoryMap.keySet();
     }
 
     public boolean checkIfItemExists(String key) {
@@ -64,9 +64,6 @@ public class InventoryManager {
         return getInventory(item).getQuantity();
     }
 
-    public Double getAmountOfItem(String item) {
-        return getInventory(item).getAmount();
-    }
 
     public Inventory getInventory(String item) {
         return inventoryMap.get(item);
