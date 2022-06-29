@@ -136,6 +136,7 @@ public class Supermarket {
                 cart.validateOffer(offerType);
                 String item = offerArr[2];
                 inventoryManager.validateItem(item);
+                cart.addOffer(item,offerType);
 
                 processOutput(Constants.RESPONSE_OFFER_ADDED,fileMode);
 
@@ -143,7 +144,6 @@ public class Supermarket {
 
         } catch (Exception e){
             processOutput("Error occurred : "+e.getMessage(),fileMode);
-            e.printStackTrace();
         }
         return false;
     }

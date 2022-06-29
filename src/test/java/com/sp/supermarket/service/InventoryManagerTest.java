@@ -14,7 +14,9 @@ import static org.junit.Assert.*;
 
 
 public class InventoryManagerTest {
-
+    private static final String ITEM_TOOTHPASTE = "toothpaste" ;
+    private static final String ITEM_SOAP = "soap";
+    private static final String ITEM_CHOCOLATE= "chocolate";
     private InventoryManager inventoryManager;
 
     public InventoryManagerTest() {
@@ -28,8 +30,8 @@ public class InventoryManagerTest {
 
         Map<String, Inventory> inventoryMap =  inventoryManager.getInventoryMap();
 
-        Inventory toothpaste = new Inventory("toothpaste", BigDecimalUtil.getBigDecimal(10.00),99);
-        Inventory soap = new Inventory("soap", BigDecimalUtil.getBigDecimal(2.50),9);
+        Inventory toothpaste = new Inventory(ITEM_TOOTHPASTE, BigDecimalUtil.getBigDecimal(10.00),99);
+        Inventory soap = new Inventory(ITEM_SOAP, BigDecimalUtil.getBigDecimal(2.50),9);
 
         Map<String,Inventory> expectedMap = new HashMap<>();
         expectedMap.put(toothpaste.getProductName(),toothpaste);
@@ -42,22 +44,22 @@ public class InventoryManagerTest {
 
     @Test
     public void testIfItemExist(){
-        assertTrue(inventoryManager.checkIfItemExists("toothpaste"));
-        assertFalse(inventoryManager.checkIfItemExists("chocolate"));
+        assertTrue(inventoryManager.checkIfItemExists(ITEM_TOOTHPASTE));
+        assertFalse(inventoryManager.checkIfItemExists(ITEM_CHOCOLATE));
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testGetInventoryItemNegative(){
-        String item = "chocolate";
+        String item = ITEM_CHOCOLATE;
         inventoryManager.validateItem(item);
         inventoryManager.getInventory(item);
     }
 
     @Test
     public void testGetInventoryItem(){
-        Inventory inventory =  inventoryManager.getInventory("toothpaste");
+        Inventory inventory =  inventoryManager.getInventory(ITEM_TOOTHPASTE);
 
-        Inventory expectedInventory = new Inventory("toothpaste", BigDecimalUtil.getBigDecimal(10.00),99);
+        Inventory expectedInventory = new Inventory(ITEM_TOOTHPASTE, BigDecimalUtil.getBigDecimal(10.00),99);
 
         assertEquals(expectedInventory,inventory);
     }
@@ -70,7 +72,7 @@ public class InventoryManagerTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testValidateItemNegative(){
-        inventoryManager.validateItem("chocolate");
+        inventoryManager.validateItem(ITEM_CHOCOLATE);
     }
 
 
