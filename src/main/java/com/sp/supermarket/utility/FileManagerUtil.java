@@ -1,5 +1,7 @@
 package com.sp.supermarket.utility;
 
+import com.sp.supermarket.service.Supermarket;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -13,16 +15,13 @@ import java.util.Scanner;
  * 23/6/22
  */
 public class FileManagerUtil {
-    public static List<String> getFileContent(String path) throws FileNotFoundException {
+    public static List<String> getFileContent(String fileName) throws FileNotFoundException {
 
 
         List<String> lines = new ArrayList<>();
-            URL url = FileManagerUtil.class.getClassLoader().getResource(path) ;
-            String filePath = "";
-            if(url != null){
-                filePath = url.getFile();
-            }
-            File myObj = new File(filePath);
+        File myObj = new File(fetchSystemsPath()+fileName);
+
+
             Scanner scanner = new Scanner(myObj);
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
@@ -31,4 +30,11 @@ public class FileManagerUtil {
 
         return lines;
     }
+
+    static String fetchSystemsPath(){
+        File jarPath=new File(Supermarket.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        return jarPath.getParentFile().getParentFile().getParentFile().getAbsolutePath() + "/functional_spec/fixtures/";
+    }
+
+
 }

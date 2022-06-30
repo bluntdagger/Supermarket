@@ -1,7 +1,5 @@
 package com.sp.supermarket.utility;
 
-import java.util.Locale;
-
 /**
  * Constants class with messages
  * @author Waleed Naveed

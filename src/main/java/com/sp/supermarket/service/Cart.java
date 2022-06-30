@@ -18,8 +18,6 @@ public class Cart {
     //Inventory and Number of same items
     private Map<String,Integer> cartMap;
 
-
-
     //product name and offer
     private Map<String,String> offerMap ;
     //Total price of cart

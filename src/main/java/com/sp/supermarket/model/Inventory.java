@@ -1,6 +1,5 @@
 package com.sp.supermarket.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 

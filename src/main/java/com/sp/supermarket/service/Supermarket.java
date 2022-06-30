@@ -1,15 +1,11 @@
 package com.sp.supermarket.service;
 
-import com.sp.supermarket.model.Inventory;
-import com.sp.supermarket.utility.BigDecimalUtil;
 import com.sp.supermarket.utility.Constants;
 import com.sp.supermarket.utility.FileManagerUtil;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  *
@@ -69,10 +65,11 @@ public class Supermarket {
 
         boolean endGame = false;
         int count = 0 ;
+//        generateNewFile("output.txt");
 
         while(!endGame || count < commandLines.size()){
 
-            endGame = processInput(commandLines.get(count),false);
+            endGame = processInput(commandLines.get(count),true);
             count++;
         }
 
@@ -89,13 +86,26 @@ public class Supermarket {
         Scanner scanner = new Scanner(System.in);
 
         boolean endGame = false;
-
         while(!endGame){
             String input = scanner.nextLine();
 
             endGame = processInput(input,false);
         }
     }
+
+
+//    private void generateNewFile(String s) {
+//        System.out.println("generate");
+//        String thing = "Text to write to the file";
+//        String dir = Supermarket.class.getResource("/").getFile();
+//        try {
+//            System.out.println(dir);
+//            new FileOutputStream(dir + "/output.txt");
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
 
     private boolean processInput(String input, boolean fileMode) {
 
@@ -170,9 +180,34 @@ public class Supermarket {
         return false;
     }
 
-    private void processOutput(String response, boolean fileMode) {
-        if(fileMode){
 
+        private void printFile(String s) {
+
+
+            File jarPath=new File(Supermarket.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            System.out.println(" jarpath-"+jarPath);
+
+            String propertiesPath=jarPath.getParentFile().getParentFile().getParentFile().getAbsolutePath();
+            System.out.println(" propertiesPath-"+propertiesPath);
+
+            String fileName = "/newFile12.txt";
+
+            try (FileOutputStream fos = new FileOutputStream(propertiesPath+fileName, true)) {
+
+                String text = s + "\n";
+                byte[] mybytes = text.getBytes();
+
+                fos.write(mybytes);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+            private void processOutput(String response, boolean fileMode) {
+        if(fileMode){
+            printFile(response);
         } else {
             System.out.println(response);
         }
