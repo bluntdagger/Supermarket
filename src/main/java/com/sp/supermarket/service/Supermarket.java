@@ -100,6 +100,12 @@ public class Supermarket {
         }
     }
 
+    /**
+     * This methods takes input either from interactive or file mode and process accordingly
+     * @param input
+     * @param fileMode
+     * @return
+     */
     private boolean processInput(String input, boolean fileMode) {
 
         try {
