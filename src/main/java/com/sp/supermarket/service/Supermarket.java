@@ -1,13 +1,11 @@
 package com.sp.supermarket.service;
 
 import com.sp.supermarket.model.Inventory;
+import com.sp.supermarket.utility.BigDecimalUtil;
 import com.sp.supermarket.utility.Constants;
-import com.sp.supermarket.utility.FileReader;
-import com.sun.tools.jconsole.JConsoleContext;
+import com.sp.supermarket.utility.FileManagerUtil;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -46,23 +44,46 @@ public class Supermarket {
     public void run(String inventoryFileName, String commandsFileName) {
         loadInventory(inventoryFileName);
         if(commandsFileName == null){
-            runInteractiveMode(inventoryFileName);
+            runInteractiveMode();
         } else {
-            runFileMode(inventoryFileName,commandsFileName);
+            runFileMode(commandsFileName);
         }
 
     }
 
 
     /**
+     * File mode will read the file from commands and print commands in output file
+     * and rest will do the same
+     * @param commandsFileName
+     */
+    public void runFileMode(String commandsFileName) {
+
+        //reading file
+        List<String> commandLines = null;
+        try {
+            commandLines = FileManagerUtil.getFileContent(commandsFileName);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(String.format(Constants.FILE_NOT_FOUND_EXCEPTION,commandsFileName));
+        }
+
+        boolean endGame = false;
+        int count = 0 ;
+
+        while(!endGame || count < commandLines.size()){
+
+            endGame = processInput(commandLines.get(count),false);
+            count++;
+        }
+
+    }
+
+    /**
      *  Interactive mode of supermarket problem, data input will be done by the user and exits on checkout
      *  and will follow the instructions
      *
-     *
-     * @param inventoryFileName
-     * inventory.csv file
      */
-    public void runInteractiveMode(String inventoryFileName) {
+    public void runInteractiveMode() {
 
         //scanner for taking inputs
         Scanner scanner = new Scanner(System.in);
@@ -88,6 +109,7 @@ public class Supermarket {
                     processOutput(Constants.RESPONSE_EMPTY_CARD_EMPTY_CART, fileMode);
                     return true;
                 }
+                processOutput(Constants.RESPONSE_EMPTY_CART_DONE,fileMode);
 
                 return true;
             }
@@ -161,9 +183,7 @@ public class Supermarket {
     }
 
 
-    public void runFileMode(String inventoryFileName, String commandsFileName) {
 
-    }
 
 
 

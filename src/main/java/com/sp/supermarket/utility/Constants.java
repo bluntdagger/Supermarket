@@ -12,7 +12,7 @@ public final class Constants {
     public static final String COMMAND_CHECKOUT = "checkout";
     public static final String COMMAND_BILL = "bill";
 
-    public static final String RESPONSE_EMPTY_CARD_DONE = "done";
+    public static final String RESPONSE_EMPTY_CART_DONE = "done";
     public static final String RESPONSE_EMPTY_CARD_EMPTY_CART = "empty cart";
     public static final String RESPONSE_OFFER_ADDED = "offer added";
     public static final String RESPONSE_BILL= "subtotal:" + "%s" + ", discount:" + "%s" + ", total:" + "%s";
@@ -26,9 +26,9 @@ public final class Constants {
     public static final String INVALID_OFFER_STATEMENT_EXCEPTION = "offer statement is not valid" ;
     public static final String PREFIX_OFFER = "offer" ;
     public static final String REGEX_OFFER = "offer [a-z0-9_.]+ [a-z]+";
-    public static final String OFFER_BUY2GET1FREE = "offer1" ;
-//    public static final String OFFER_BUY2GET1FREE = "buy_2_get_1_free" ; todo
-    public static final String OFFER_BUY1GETHALFOFF = "offer2" ;
-//    public static final String OFFER_BUY1GETHALFOFF = "buy_1_get_half_off" ; todo
+//    public static final String OFFER_BUY2GET1FREE = "offer1" ;
+    public static final String OFFER_BUY2GET1FREE = "buy_2_get_1_free" ;
+//    public static final String OFFER_BUY1GETHALFOFF = "offer2" ;
+    public static final String OFFER_BUY1GETHALFOFF = "buy_1_get_half_off" ;
     public static final String RESPONSE_ITEM_ADDED = "added %s %s" ;
 }

@@ -3,7 +3,7 @@ package com.sp.supermarket.service;
 
 import com.sp.supermarket.model.Inventory;
 import com.sp.supermarket.utility.BigDecimalUtil;
-import com.sp.supermarket.utility.FileReader;
+import com.sp.supermarket.utility.FileManagerUtil;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -66,7 +66,7 @@ public class InventoryManagerTest {
 
     @Test(expected = FileNotFoundException.class)
     public void testGetContentException() throws FileNotFoundException {
-        FileReader.getFileContent("sadapay.txt");
+        FileManagerUtil.getFileContent("sadapay.txt");
 
     }
 

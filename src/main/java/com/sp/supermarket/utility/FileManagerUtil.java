@@ -8,16 +8,16 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * File reader utility class
+ * File Manager utility class
  * @author Waleed Naveed
  * 23/6/22
  */
-public class FileReader {
+public class FileManagerUtil {
     public static List<String> getFileContent(String path) throws FileNotFoundException {
 
 
         List<String> lines = new ArrayList<>();
-            URL url = FileReader.class.getClassLoader().getResource(path) ;
+            URL url = FileManagerUtil.class.getClassLoader().getResource(path) ;
             String filePath = "";
             if(url != null){
                 filePath = url.getFile();

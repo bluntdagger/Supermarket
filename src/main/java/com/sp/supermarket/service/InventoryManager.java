@@ -3,14 +3,12 @@ package com.sp.supermarket.service;
 import com.sp.supermarket.model.Inventory;
 import com.sp.supermarket.utility.BigDecimalUtil;
 import com.sp.supermarket.utility.Constants;
-import com.sp.supermarket.utility.FileReader;
+import com.sp.supermarket.utility.FileManagerUtil;
 
 import java.io.FileNotFoundException;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,7 +34,7 @@ public class InventoryManager {
 
         List<String> lines = null;
         try {
-            lines = FileReader.getFileContent(inventoryFileName);
+            lines = FileManagerUtil.getFileContent(inventoryFileName);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(String.format(Constants.FILE_NOT_FOUND_EXCEPTION,inventoryFileName));
         }
