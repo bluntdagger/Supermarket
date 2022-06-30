@@ -178,6 +178,7 @@ public class Supermarket {
 
     private void processOutput(String response, boolean fileMode) {
         if(fileMode){
+            System.out.println(response);
             FileManagerUtil.printFileLn(response,Constants.OUTPUT_FILE_NAME);
         } else {
             System.out.println(response);
