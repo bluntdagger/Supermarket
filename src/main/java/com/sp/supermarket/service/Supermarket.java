@@ -3,7 +3,7 @@ package com.sp.supermarket.service;
 import com.sp.supermarket.utility.Constants;
 import com.sp.supermarket.utility.FileManagerUtil;
 
-import java.io.*;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,9 +63,12 @@ public class Supermarket {
             throw new RuntimeException(String.format(Constants.FILE_NOT_FOUND_EXCEPTION,commandsFileName));
         }
 
+        //flushing existing output file if any
+        FileManagerUtil.flushFile(Constants.OUTPUT_FILE_NAME);
+
         boolean endGame = false;
         int count = 0 ;
-//        generateNewFile("output.txt");
+
 
         while(!endGame || count < commandLines.size()){
 
@@ -93,20 +96,6 @@ public class Supermarket {
         }
     }
 
-
-//    private void generateNewFile(String s) {
-//        System.out.println("generate");
-//        String thing = "Text to write to the file";
-//        String dir = Supermarket.class.getResource("/").getFile();
-//        try {
-//            System.out.println(dir);
-//            new FileOutputStream(dir + "/output.txt");
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
-
     private boolean processInput(String input, boolean fileMode) {
 
         try {
@@ -117,7 +106,7 @@ public class Supermarket {
                 if (cart.isEmpty()) {
                     cart.processCart(inventoryManager.getInventoryMap());
                     processOutput(Constants.RESPONSE_EMPTY_CARD_EMPTY_CART, fileMode);
-                    return true;
+                    return false;
                 }
                 processOutput(Constants.RESPONSE_EMPTY_CART_DONE,fileMode);
 
@@ -181,33 +170,10 @@ public class Supermarket {
     }
 
 
-        private void printFile(String s) {
 
-
-            File jarPath=new File(Supermarket.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-            System.out.println(" jarpath-"+jarPath);
-
-            String propertiesPath=jarPath.getParentFile().getParentFile().getParentFile().getAbsolutePath();
-            System.out.println(" propertiesPath-"+propertiesPath);
-
-            String fileName = "/newFile12.txt";
-
-            try (FileOutputStream fos = new FileOutputStream(propertiesPath+fileName, true)) {
-
-                String text = s + "\n";
-                byte[] mybytes = text.getBytes();
-
-                fos.write(mybytes);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-            private void processOutput(String response, boolean fileMode) {
+    private void processOutput(String response, boolean fileMode) {
         if(fileMode){
-            printFile(response);
+            FileManagerUtil.printFileLn(response,Constants.OUTPUT_FILE_NAME);
         } else {
             System.out.println(response);
         }

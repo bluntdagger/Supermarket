@@ -29,4 +29,6 @@ public final class Constants {
 //    public static final String OFFER_BUY1GETHALFOFF = "offer2" ;
     public static final String OFFER_BUY1GETHALFOFF = "buy_1_get_half_off" ;
     public static final String RESPONSE_ITEM_ADDED = "added %s %s" ;
+    public static final String OUTPUT_FILE_NAME ="output.txt" ;
+    public static final String FILE_DIRECTORY_PATH = "/functional_spec/fixtures/" ;
 }
