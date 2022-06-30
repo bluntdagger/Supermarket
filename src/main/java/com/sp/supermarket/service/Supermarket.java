@@ -3,6 +3,7 @@ package com.sp.supermarket.service;
 import com.sp.supermarket.utility.Constants;
 import com.sp.supermarket.utility.FileManagerUtil;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
@@ -44,6 +45,9 @@ public class Supermarket {
         } else {
             runFileMode(commandsFileName);
         }
+
+        // update inventory
+        inventoryManager.updateInventory(inventoryFileName);
 
     }
 
@@ -108,6 +112,7 @@ public class Supermarket {
                     processOutput(Constants.RESPONSE_EMPTY_CARD_EMPTY_CART, fileMode);
                     return false;
                 }
+                cart.updateInventory(inventoryManager.getInventoryMap());
                 processOutput(Constants.RESPONSE_EMPTY_CART_DONE,fileMode);
 
                 return true;

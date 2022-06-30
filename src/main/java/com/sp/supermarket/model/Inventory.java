@@ -54,4 +54,13 @@ public class Inventory  {
         return Objects.equals(getProductName(), inventory.getProductName()) && Objects.equals(getAmount(), inventory.getAmount()) && Objects.equals(getQuantity(), inventory.getQuantity());
     }
 
+
+    public String toCsvLine() {
+        return productName +
+                "," +
+                amount +
+                "," +
+                quantity;
+
+    }
 }

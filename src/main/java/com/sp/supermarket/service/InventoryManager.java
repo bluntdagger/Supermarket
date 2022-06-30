@@ -74,4 +74,16 @@ public class InventoryManager {
             throw new IllegalArgumentException(String.format(Constants.RESPONSE_ITEM_NOT_EXIST,item));
 
     }
+
+    /**
+     * This method will update inventory by flushing existing inventory file and generate new one
+     * @param inventoryFileName
+     */
+    public void updateInventory(String inventoryFileName) {
+        FileManagerUtil.flushFile(inventoryFileName);
+        inventoryMap.forEach((itemName,inventory)->{
+            FileManagerUtil.printFileLn(inventory.toCsvLine(),inventoryFileName);
+        });
+
+    }
 }

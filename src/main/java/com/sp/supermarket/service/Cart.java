@@ -103,18 +103,17 @@ public class Cart {
     public void processCart(Map<String, Inventory> inventoryMap) {
         if(!cartMap.isEmpty()){
             resetPriceOfCart();
-            //iterate map
-            cartMap.forEach((item, quantity) -> subTotal = subTotal.add(
-                    inventoryMap.get(item).getAmount().multiply(BigDecimal.valueOf(quantity))
-            ));
 
             //discount calculation
             cartMap.forEach((item, quantity) -> {
-                discount = discount.add(
-                        calculateDiscountUnitsForEveryItem(quantity,inventoryMap.get(item).getAmount(),offerMap.get(item))
-                );
+                //calculating subtotal
+                subTotal = subTotal.add(inventoryMap.get(item).getAmount().multiply(BigDecimal.valueOf(quantity)));
+                //calculating discount
+                discount = discount.add(calculateDiscountUnitsForEveryItem(quantity,inventoryMap.get(item).getAmount(),offerMap.get(item)));
 
             }  );
+
+
 
         }
     }
@@ -170,5 +169,13 @@ public class Cart {
 
     public void addOffer(String item, String offerType) {
         offerMap.put(item,offerType);
+    }
+
+    public void updateInventory(Map<String, Inventory> inventoryMap) {
+        cartMap.forEach((item,quantity)->{
+            //subtracting from inventory
+            Inventory inv = inventoryMap.get(item);
+            inv.setQuantity(inv.getQuantity()-quantity);
+        });
     }
 }
